@@ -1,0 +1,102 @@
+//
+//  iOSFinancial-Prefix.pch
+//  iOSFinancial
+//
+//  Created by Mr.Yang on 15/3/27.
+//  Copyright (c) 2015年 Mr.Yang. All rights reserved.
+//
+
+#ifndef iOSFinancial_iOSFinancial_Prefix_pch
+#define iOSFinancial_iOSFinancial_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import "UIColor+HTExtension.h"
+#import "UIView+BFExtension.h"
+
+
+//  手势键盘密码的KEY值
+static NSString *const kLockSecurityStr =  @"deblocking";
+static NSString *const kUserTokenStr =     @"tkoen";
+
+
+//  每一页的指引
+#define HTCustomerGuideVersion  1
+#define HTCustomerGuideVersionKey   @"customerGuideVersionKey"
+
+
+
+//--------------NOTIFACTION DEFINE--------------//
+#define UmPayResultNotifaction  @"payResult"
+#define UmPayResultSuccessCode  @"0000"
+
+
+
+//--------------Notifaction End-----------------//
+
+#define APPScreenFrame      [[UIScreen mainScreen] applicationFrame]
+#define APPScreenWidth      APPScreenFrame.size.width
+#define APPScreenHeight     APPScreenFrame.size.height
+#define RealScreenHeight    [UIScreen mainScreen].bounds.size.height
+
+#define APPKeyWindow        [UIApplication sharedApplication].keyWindow
+#define SelfViewFrame       self.view.frame
+#define SelfViewWidth       SelfViewFrame.size.width
+#define SelfViewHeight      SelfViewFrame.size.height
+
+#define is35Inch   ((NSInteger)RealScreenHeight == 480 ? YES : NO)
+#define is4Inch   ((NSInteger)RealScreenHeight == 568 ? YES : NO)
+#define is47Inch  ((NSInteger)RealScreenHeight == 667 ? YES : NO)
+#define is55Inch  ((NSInteger)RealScreenHeight == 736 ? YES : NO)
+
+#define APPSystemVersion    [[[UIDevice currentDevice] systemVersion] intValue]
+#define HTImageNamed(name)  [UIImage imageNamed:name]
+#define HTFont(size)        [UIFont systemFontOfSize:size]
+#define HTSTR(...)          [NSString stringWithFormat:__VA_ARGS__]
+#define HTURL(str)          [NSURL URLWithString:str]
+
+#define HTUserDefaults      [NSUserDefaults standardUserDefaults]
+
+#define WeakSelf(VC)        __weak VC *weakSelf = self
+#define __weakSelf          __weak typeof(self) weakSelf = self
+
+
+static inline BOOL isEmpty(id thing) {
+    return thing == nil || [thing isEqual:[NSNull null]]
+    || ([thing respondsToSelector:@selector(length)]
+        && [(NSData *)thing length] == 0)
+    || ([thing respondsToSelector:@selector(count)]
+        && [(NSArray *)thing count] == 0);
+}
+
+
+/**
+ *  if undefined DEBUG or DEBUG is 0 then disabled log
+ *
+ *  if DEBUG == 1 LogWarning is enabled
+ *
+ *  if DEBUG > 1 LogError ie enabled
+ */
+
+#if !defined(DEBUG) || DEBUG == 0
+#define NSLog(...) do {} while (0)
+#define DLog(fmt, ...)
+
+#elif DEBUG == 1
+
+#define NSLog(...) NSLog(__VA_ARGS__)
+#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+#endif
+
+
+#endif
+
+
+#endif
